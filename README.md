@@ -1,5 +1,7 @@
 # LeetCode New Tab
 
+[Live Demo](https://cole-hartman.github.io/leetcode-new-tab/)
+
 ## Features
 
 - 🌙 Modern and minimal interface
