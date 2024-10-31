@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import "./App.css";
 
 function App() {
   const [time, setTime] = useState(new Date());
@@ -14,15 +13,7 @@ function App() {
     "404: LeetCode submission not found 🔍",
     "The grind doesn't take days off! 😤",
     "Console.log('time to code') 🖥️",
-    "Time to make future you proud (or at least employed) 💼",
-    "Don't break the streak! Code time 🔥",
-    "Your future self will thank you for practicing today 🌟",
-    "Somewhere, a FAANG recruiter is waiting... ⌛",
-    "One problem a day keeps the interviewer away! 😄",
-    "That Netflix salary isn't gonna earn itself 💰",
-    "Time to earn those stock options 📈",
-    "Grinding LeetCode: Because money can buy happiness 🤑",
-    "Your competition is probably coding right now ⌛"
+    "Time to make future you proud (or at least employed) 💼"
   ];
 
   const celebratoryMessages = [
@@ -30,30 +21,25 @@ function App() {
     "LinkedIn status update incoming... 💭",
     "Crushing it harder than tech layoffs 💪",
     "Future you is grateful! 🙌",
-    "Runtime complexity: EFFICIENT 📈",
-    "Leetcode: completed, Depression: defeated 🏆",
-    "Your brain must be HUGE 🧠",
-    "while(true) { earnMoney() } 💰",
-    "merge origin/success --force 💪",
-    "Google recruiter has entered the chat 👀",
-    "Senior dev behavior detected 🧠",
-    "Passing all test cases IRL 📝",
-    "async function getSuccess() 🎯",
-    "Pull request: life.upgrade() ⬆️",
-    "Error 404: Failure not found 🔍",
-    "new Career(success).deploy() 🚀",
-    "Complexity analysis: O(success) 📊",
-    "git checkout success-branch 🌿"
+    "Runtime complexity: EFFICIENT 📈"
   ];
 
   const isFromToday = (timestamp) => {
     const submissionDate = new Date(timestamp * 1000);
     const today = new Date();
-    return submissionDate.toDateString() === today.toDateString();
+
+    return (
+      submissionDate.getFullYear() === today.getFullYear() &&
+      submissionDate.getMonth() === today.getMonth() &&
+      submissionDate.getDate() === today.getDate()
+    );
   };
 
   const getTodaysProblems = (submissions) => {
-    if (!submissions?.submission) return [];
+    if (!submissions?.submission || !Array.isArray(submissions.submission)) {
+      return [];
+    }
+
     return submissions.submission
       .filter(sub => isFromToday(sub.timestamp))
       .map(sub => sub.title);
@@ -65,14 +51,25 @@ function App() {
     }, 1000);
 
     const fetchSubmissions = async () => {
-      const res = await fetch("https://alfa-leetcode-api.onrender.com/cole-hartman/submission")
-      const data = await res.json()
-      setSubmission(data)
-      setTodaysProblems(getTodaysProblems(data));
-      setMotivationalMessage(motivationalMessages[Math.floor(Math.random() * motivationalMessages.length)]);
-      setCelebratoryMessage(celebratoryMessages[Math.floor(Math.random() * celebratoryMessages.length)]);
-    }
-    fetchSubmissions()
+      try {
+        const res = await fetch("https://alfa-leetcode-api.onrender.com/cole-hartman/submission");
+        const data = await res.json();
+        setSubmission(data);
+        const todaysProblemsList = getTodaysProblems(data);
+        setTodaysProblems(todaysProblemsList);
+
+        if (todaysProblemsList.length > 0) {
+          setCelebratoryMessage(celebratoryMessages[Math.floor(Math.random() * celebratoryMessages.length)]);
+        } else {
+          setMotivationalMessage(motivationalMessages[Math.floor(Math.random() * motivationalMessages.length)]);
+        }
+      } catch (error) {
+        // Silently handle error but keep previous state
+      }
+    };
+
+    fetchSubmissions();
+
     return () => clearInterval(timer);
   }, []);
 
@@ -130,7 +127,9 @@ function App() {
                   <span>{motivationalMessage}</span>
                 </motion.div>
                 <span className="text-sm text-zinc-500 mt-1">
-                  Last Submission: {new Date(submission.submission[0].timestamp * 1000).toLocaleDateString()}
+                  Last Submission: {submission.submission[0] ?
+                    new Date(submission.submission[0].timestamp * 1000).toLocaleDateString() :
+                    'No submissions found'}
                 </span>
               </div>
             )
@@ -180,4 +179,3 @@ function App() {
 }
 
 export default App;
-
