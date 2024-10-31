@@ -16,3 +16,25 @@
 #### Mobile
 <img src='https://github.com/Cole-Hartman/leetcode-new-tab/blob/main/public/img3.jpg' title='Video Walkthrough' width='300px' alt='demo' />
 
+
+## Setting Up Your Own LeetCode Tracker
+
+1. Fork this repository
+
+2. Update the API endpoint in `App.jsx`:
+   ```javascript
+   const API_URL = "https://alfa-leetcode-api.onrender.com/YOUR-LEETCODE-USERNAME/submission"
+   ```
+
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+4. Deploy Using GitHub Pages:  
+- Make sure you have deploy.yml in .github/workflows  
+- Go to Settings -> Pages -> and select build with GitHub Actions  
+
+
+
+
