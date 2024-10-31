@@ -6,14 +6,12 @@
 #### After Submitting Today
 <img src='https://github.com/Cole-Hartman/leetcode-new-tab/blob/main/public/img2.png' title='Video Walkthrough' width='' alt='demo' />
 
+#### Mobile View
+<img src='https://github.com/Cole-Hartman/leetcode-new-tab/blob/main/public/img3.png' title='Video Walkthrough' width='' alt='demo' />
+
 ## Features
 
-- 🕒 Real-time digital clock with animated display and full date
+- 🌙 Modern and minimal interface
 - 📊 Automatic tracking of daily LeetCode problem completions
-- 🔄 Instant updates with page refresh after new submissions
-- 💭 Tech-themed motivational messages for pending submissions
-- 🎉 Celebratory messages upon completing problems
-- 💫 Smooth animations and transitions throughout
-- 🌙 Modern dark mode interface
-- 🎨 Clean, minimalist design that works on all screens
-- 🚦 Color-coded status indicators for daily progress
+- 🔄 Instant updates after new submissions
+- 💭 Motivational messages to keep you on track
